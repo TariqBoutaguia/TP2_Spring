@@ -19,12 +19,28 @@ public class PersonneServiceImpl implements PersonneServiceItf{
 		// TODO Auto-generated method stub
 		repo.save(new Personne(email, pwd, nom, prenom));
 	}
+	
+	@Override
+    public boolean login(String email, String password) {
+    Iterable<Personne> Personnes = findByEmail(email);
+    boolean valid = false;
+    for(Personne Personne: Personnes) {
+    valid = (Personne.getPwd().equals(password));
+    }
+    return valid;
+    }
+	
     @Override
 	public Iterable<Personne> getAllPersonnes() {
 		// TODO Auto-generated method stub
 		return repo.findAll();
 	}
     
+    @Override
+	public Iterable<Personne> findByEmail(String email) {
+		// TODO Auto-generated method stub
+		return repo.findByEmail(email);
+    }
 
 }
 	

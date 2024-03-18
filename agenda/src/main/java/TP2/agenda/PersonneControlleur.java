@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 //import demp.autheur.demo.Auteur;
@@ -26,10 +27,22 @@ public class PersonneControlleur {
   	  return "home";
     }
     
-    @PostMapping("/signin")
+    @PostMapping("/signup")
     public String addAuteur(@RequestParam String email, @RequestParam String pwd, @RequestParam String nom, @RequestParam String prenom) {
   	  service.ajoutPersonne(email, pwd, nom, prenom);
     return "redirect:/home";
+    }
+    
+    @PostMapping("/signin")
+    public String login( @RequestParam String email, @RequestParam String password, HttpServletRequest request,HttpServletResponse response) {
+    HttpSession session = request.getSession();
+    if(service.login(email,password)) {
+		 return "redirect:/welkom";
+	 } else {
+		 return "home";
+	 }
+
+	 
   	  
     }
     
