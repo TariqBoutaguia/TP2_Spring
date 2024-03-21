@@ -1,0 +1,33 @@
+<html xmlns: th="http://www.thymeleaf.org">
+
+
+<body>
+
+
+<h1 align="center">Mes Evenements</h1>
+
+ <p th:text="' Hello ' + ${personne} "></p>
+ <p th:text="'Agenda : ' + ${nom_agenda} "></p>
+
+
+<table border="1">
+
+<tr><th>Id</th><th>Nom</th><th>Description</th><th>Date</th><th>Action</th></tr>
+
+<tr th:each="evenement : ${evenements}">
+
+<td th:text="${evenement.id}" />
+
+<td th:text="${evenement.nomEvenement}" />
+
+<td th:text="${evenement.description}" />
+
+<td th:text="${evenement.dateEvenement}" />
+
+</tr>
+
+</table>
+
+
+
+

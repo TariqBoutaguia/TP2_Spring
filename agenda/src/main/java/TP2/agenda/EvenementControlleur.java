@@ -53,21 +53,16 @@ public class EvenementControlleur {
         return "redirect:/evenements/liste/"+ agendaId; // Redirect to the event list page
     }
 	
-	/*@GetMapping("/pdf/{agendaId}")
-    public String pdf(@PathVariable("agendaId") Long agendaId,HttpServletRequest request,Model model) {
+	@GetMapping("/imprimer/{agendaId}")
+    public String imprimer(@PathVariable("agendaId") Long agendaId, HttpServletRequest request, Model model) {
 		HttpSession session = request.getSession();
-		
-	    String user = (String) session.getAttribute("nom");
-	  
+	    String personne = (String) session.getAttribute("nom");
 	    Agenda agenda = serviceAgenda.getAgendaById(agendaId); 
 	    String nomAgenda = agenda.getNom();
-	    
-	    Iterable<com.example.demo.Entity.Evenement> evenements = service.getEvenementByAgendas(agenda);
+	    Iterable<Evenement> evenements = service.getEvenementByAgendas(agenda);
 	    model.addAttribute("evenements", evenements);
-	    model.addAttribute("user", user);
+	    model.addAttribute("personne", personne);
 	    model.addAttribute("nom_agenda", nomAgenda);
-	    
-        return "evenement/pdf"; // Redirect to the event list page
-    
-}*/
+        return "Imprimer"; 
+    }
 }

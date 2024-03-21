@@ -4,7 +4,7 @@
 <body>
 
 
-<h1>Evenement</h1>
+<h1>Evenements</h1>
 
 
 <table border="1">
@@ -30,14 +30,18 @@
 </tr>
 
 </table>
+<br>
 
 
 <hr/>
 
-<a th:href="@{/evenements/new/{agendaId}(agendaId=${agendaId})}">Ajouter un nouveau evenement</a>
+<a th:href="@{/evenements/new/{agendaId}(agendaId=${agendaId})}">nouveau évenement</a>
     <hr/>
+<br>
+<hr/>
 
+<a th:href="@{/imprimer/{agendaId}(agendaId=${agendaId})}">Imprimer ma liste d'évenements</a>
 <hr/>
 </h1> 
     <a href="/logout">Déconnexion</a><br/><br/>
-    <hr/>
+ 

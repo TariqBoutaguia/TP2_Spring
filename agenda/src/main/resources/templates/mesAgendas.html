@@ -18,19 +18,22 @@
     <td th:text="${agenda.id}" />
     <td th:text="${agenda.nom}" >
     <td>
-        <a th:href="@{/evenements/liste/{agendaId}(agendaId=${agenda.id})}" th:text="${agenda.nom}">Edit</a>
+        <a th:href="@{/evenements/liste/{agendaId}(agendaId=${agenda.id})}">Voir --></a>
     </td>
 </tr>
 
 </table>
+<br>
+<br>
 
-<a href="/mesAgendas/new">Ajouter nouvelle agenda</a>
+<a href="/mesAgendas/new">Nouveau agenda</a>
 
 
 
-
+<br>
 <hr/>
+<br>
 </h1> 
     <a href="/logout">Déconnexion</a><br/><br/>
-    <hr/>
+ 
 
