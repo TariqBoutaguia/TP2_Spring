@@ -24,45 +24,63 @@ public class EvenementControlleur {
     private AgendaServiceItf serviceAgenda;
 	
 	@GetMapping("/evenements/liste/{agendaId}")
-	public String voirMesevenement(@PathVariable("agendaId") Long agendaId, Model model) {
-	    Agenda agenda = serviceAgenda.getAgendaById(agendaId); 
-	    Iterable<Evenement> evenements = service.getEvenementByAgendas(agenda);
-	    model.addAttribute("evenements", evenements);
-	    model.addAttribute("agendaId", agendaId);
-	    return "listeEvenement";
+	public String voirMesevenement(@PathVariable("agendaId") Long agendaId, Model model, HttpSession session) {
+		if(session.getAttribute("personne") == null) {
+			return "redirect:/home";
+		} else {
+		    Agenda agenda = serviceAgenda.getAgendaById(agendaId); 
+	        Iterable<Evenement> evenements = service.getEvenementByAgendas(agenda);
+	        model.addAttribute("evenements", evenements);
+	        model.addAttribute("agendaId", agendaId);
+	        return "listeEvenement";
+		}
 	}
 
 	@GetMapping("/evenements/new/{agendaId}")
-	public String MesAgendaNouveau(@PathVariable("agendaId") Long agendaId,Model model) {
+	public String MesAgendaNouveau(@PathVariable("agendaId") Long agendaId,Model model, HttpSession session) {
+		if(session.getAttribute("personne") == null) {
+			return "redirect:/home";
+		} else {
 		model.addAttribute("agendaId", agendaId);
 	    return "evenement";
+		}
     }
 	
 	@PostMapping("/evenements/new/{agendaId}")
-	public String addEvenement(@PathVariable("agendaId") Long agendaId,@RequestParam String nomEvenement,@RequestParam String description, @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date dateEvenement) {
-		
-		Agenda agenda = serviceAgenda.getAgendaById(agendaId);
-        service.ajoutEvenement(nomEvenement, description, dateEvenement, agenda);
-        return "redirect:/evenements/liste/"+ agendaId;
+	public String addEvenement(@PathVariable("agendaId") Long agendaId,@RequestParam String nomEvenement,@RequestParam String description, @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date dateEvenement, HttpSession session) {
+		if(session.getAttribute("personne") == null) {
+			return "redirect:/home";
+		} else {
+		    Agenda agenda = serviceAgenda.getAgendaById(agendaId);
+            service.ajoutEvenement(nomEvenement, description, dateEvenement, agenda);
+            return "redirect:/evenements/liste/"+ agendaId;
+		}
     }
 	
 	@PostMapping("/delete/{evenementId}/{agendaId}")
-    public String deleteEvenement(@PathVariable("evenementId") Long evenementId,@PathVariable("agendaId") Long agendaId) {
-        // Call your service to delete the event by ID
-        service.deleteEvenementById(evenementId);
-        return "redirect:/evenements/liste/"+ agendaId; // Redirect to the event list page
+    public String deleteEvenement(@PathVariable("evenementId") Long evenementId,@PathVariable("agendaId") Long agendaId, HttpSession session) {
+		if(session.getAttribute("personne") == null) {
+			return "redirect:/home";
+		} else {
+            service.deleteEvenementById(evenementId);
+            return "redirect:/evenements/liste/"+ agendaId; 
+		}
     }
 	
 	@GetMapping("/imprimer/{agendaId}")
     public String imprimer(@PathVariable("agendaId") Long agendaId, HttpServletRequest request, Model model) {
 		HttpSession session = request.getSession();
-	    String personne = (String) session.getAttribute("nom");
-	    Agenda agenda = serviceAgenda.getAgendaById(agendaId); 
-	    String nomAgenda = agenda.getNom();
-	    Iterable<Evenement> evenements = service.getEvenementByAgendas(agenda);
-	    model.addAttribute("evenements", evenements);
-	    model.addAttribute("personne", personne);
-	    model.addAttribute("nom_agenda", nomAgenda);
-        return "Imprimer"; 
+		if(session.getAttribute("personne") == null) {
+			return "redirect:/home";
+		} else {
+	       String personne = (String) session.getAttribute("nom");
+	       Agenda agenda = serviceAgenda.getAgendaById(agendaId); 
+	       String nomAgenda = agenda.getNom();
+	       Iterable<Evenement> evenements = service.getEvenementByAgendas(agenda);
+	       model.addAttribute("evenements", evenements);
+	       model.addAttribute("personne", personne);
+	       model.addAttribute("nom_agenda", nomAgenda);
+           return "Imprimer"; 
+		}
     }
 }
