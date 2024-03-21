@@ -1,0 +1,32 @@
+<html xmlns: th="http://www.thymeleaf.org">
+
+
+<body>
+
+
+<h1>Agendas</h1>
+
+
+<table border="1">
+
+<tr>
+    <th>Id</th>
+    <th>Nom</th>
+</tr>
+<tr th:each="agenda : ${agendas}">
+    <td th:text="${agenda.id}" />
+    <td th:text="${agenda.nom}" >
+</tr>
+
+</table>
+
+<a href="/mesAgendas/new">Ajouter nouvelle agenda</a>
+
+
+
+
+<hr/>
+</h1> 
+    <a href="/logout">Déconnexion</a><br/><br/>
+    <hr/>
+

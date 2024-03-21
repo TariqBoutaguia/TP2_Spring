@@ -1,7 +1,13 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <body>
-<h1 th:text="${session.email}" />
-    <h1 th:text="'Hello,' '"${personne.nom}' "></h1>
+    <h1>
+      <p th:text="'Bonjour, ' + ${nom} "></p>
+
+    </h1> 
+    <a href="/logout">Déconnexion</a><br/><br/>
+    <hr/>
+    <a href="/mesAgendas/liste">Mes agenda</a></br></br>
+    
 </body>
 </html>

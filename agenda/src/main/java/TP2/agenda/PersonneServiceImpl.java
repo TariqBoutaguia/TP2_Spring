@@ -1,5 +1,7 @@
 package TP2.agenda;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,14 +23,16 @@ public class PersonneServiceImpl implements PersonneServiceItf{
 	}
 	
 	@Override
-    public boolean login(String email, String password) {
-    Iterable<Personne> Personnes = findByEmail(email);
-    boolean valid = false;
-    for(Personne Personne: Personnes) {
-    valid = (Personne.getPwd().equals(password));
-    }
-    return valid;
-    }
+	public boolean login(String email, String password) {
+	    Iterable<Personne> personnes = findByEmail(email);
+	    for(Personne personne : personnes) {
+	        if (personne.getPwd().equals(password)) {
+	            return true; // Return true if password matches
+	        }
+	    }
+	    return false; // Return false if no matching email or password
+	}
+
 	
     @Override
 	public Iterable<Personne> getAllPersonnes() {
@@ -41,7 +45,17 @@ public class PersonneServiceImpl implements PersonneServiceItf{
 		// TODO Auto-generated method stub
 		return repo.findByEmail(email);
     }
-
+    @Override
+    public Iterable<Personne> getUserInfo(String email) {
+    	Iterable<Personne> personne = findByEmail(email);
+         return personne; 
+    }
+    
+    @Override
+    public Personne getPersonneByEmail(String email) {
+        Optional<Personne> optionalPersonne = repo.findById(email);
+        return optionalPersonne.orElse(null); // or throw an exception or handle it according to your application's logic
+    }
 }
 	
 	

@@ -5,4 +5,6 @@ import org.springframework.data.repository.CrudRepository;
 
 public interface PersonneRepository extends CrudRepository<Personne, String> {
 	Iterable<Personne> findByEmail(String email);
+	
+	Personne getPersonneByEmail(String email);
 }
