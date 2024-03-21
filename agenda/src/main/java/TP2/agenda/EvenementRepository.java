@@ -1,5 +1,9 @@
 package TP2.agenda;
 
-public interface EvenementRepository {
+import org.springframework.data.repository.CrudRepository;
 
+
+
+public interface EvenementRepository extends CrudRepository<Evenement, Long>{
+	Iterable<Evenement> findByAgendas(Agenda agenda);
 }

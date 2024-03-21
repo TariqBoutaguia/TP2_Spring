@@ -12,10 +12,14 @@
 <tr>
     <th>Id</th>
     <th>Nom</th>
+    <th>évenements</th>
 </tr>
 <tr th:each="agenda : ${agendas}">
     <td th:text="${agenda.id}" />
     <td th:text="${agenda.nom}" >
+    <td>
+        <a th:href="@{/evenements/liste/{agendaId}(agendaId=${agenda.id})}" th:text="${agenda.nom}">Edit</a>
+    </td>
 </tr>
 
 </table>
